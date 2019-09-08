@@ -33,7 +33,6 @@ const StaticmanAPI = function () {
 StaticmanAPI.prototype.initialiseBruteforceProtection = function () {
   const store = new ExpressBrute.MemoryStore()
 
-  this.bruteforce = new ExpressBrute(store)
 }
 
 StaticmanAPI.prototype.initialiseCORS = function () {
@@ -49,7 +48,6 @@ StaticmanAPI.prototype.initialiseRoutes = function () {
   // Route: connect
   this.server.get(
     '/v:version/connect/:username/:repository',
-    this.bruteforce.prevent,
     this.requireApiVersion([1, 2]),
     this.controllers.connect
   )
@@ -57,7 +55,6 @@ StaticmanAPI.prototype.initialiseRoutes = function () {
   // Route: process
   this.server.post(
     '/v:version/entry/:username/:repository/:branch',
-    this.bruteforce.prevent,
     this.requireApiVersion([1, 2]),
     this.requireParams(['fields']),
     this.controllers.process
@@ -65,7 +62,6 @@ StaticmanAPI.prototype.initialiseRoutes = function () {
 
   this.server.post(
     '/v:version/entry/:username/:repository/:branch/:property',
-    this.bruteforce.prevent,
     this.requireApiVersion([2]),
     this.requireParams(['fields']),
     this.controllers.process
@@ -73,7 +69,6 @@ StaticmanAPI.prototype.initialiseRoutes = function () {
 
   this.server.post(
     '/v:version/entry/:service/:username/:repository/:branch/:property',
-    this.bruteforce.prevent,
     this.requireApiVersion([3]),
     this.requireService(['github', 'gitlab']),
     this.requireParams(['fields']),
@@ -83,7 +78,6 @@ StaticmanAPI.prototype.initialiseRoutes = function () {
   // Route: encrypt
   this.server.get(
     '/v:version/encrypt/:text',
-    this.bruteforce.prevent,
     this.requireApiVersion([2, 3]),
     this.controllers.encrypt
   )
@@ -91,7 +85,6 @@ StaticmanAPI.prototype.initialiseRoutes = function () {
   // Route: oauth
   this.server.get(
     '/v:version/auth/:service/:username/:repository/:branch/:property',
-    this.bruteforce.prevent,
     this.requireApiVersion([2, 3]),
     this.requireService(['github', 'gitlab']),
     this.controllers.auth

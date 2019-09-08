@@ -115,7 +115,14 @@ const schema = {
     default: null,
     env: 'RSA_PRIVATE_KEY'
   },
-  logging: {
+  version: {
+    doc: 'RSA private key to encrypt sensitive configuration parameters with.',
+    docExample: 'rsaPrivateKey: "-----BEGIN RSA PRIVATE KEY-----\\nkey\\n-----END RSA PRIVATE KEY-----"',
+    format: String,
+    default: 2,
+    env: 'version'
+  },
+logging: {
     slackWebhook: {
       doc: 'Slack webhook URL to pipe log output to',
       format: String,
